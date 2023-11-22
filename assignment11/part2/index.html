@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue.js List Rendering</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+</head>
+<body>
+    <style>
+        #app{
+            margin: 0 auto;
+            width: 500px;
+            height: 300px;
+            background-color:antiquewhite;
+            border-radius: 30px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        input{
+            padding: 7px;
+            border: none;
+            border-radius: 10px;
+            width: 200px;
+        }
+        #add{
+            width: 90px;
+            padding: 7px;
+            border: none;
+            border-radius: 10px;
+            background-color: burlywood;
+        }
+        ul{
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            width: 340px;
+        }
+        li{
+            width: 300px;
+            position: relative;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            list-style: none;
+        }
+        #remove{
+            border: none;
+            background: transparent;
+        }
+
+
+    </style>
+
+    <!-- Your Vue app will go here -->
+    <div id="app">
+        <div>
+            <input type="text" v-model="newItem" placeholder="Enter a new item">
+            <button id="add" @click="addItem">Add Item</button>
+        </div>
+        <ul>
+            <li v-for="(item, index) in items" :key="index">
+                {{ item }}
+                <button id="remove" @click="removeItem(index)">X</button>
+            </li>
+        </ul>
+    </div>
+
+    <script>
+        // Create a new Vue instance
+        var app = new Vue({
+            el: '#app',
+            data: {
+                items: ['Apple', 'Banana', 'Orange'],
+                newItem: ''
+            },
+            methods: {
+                addItem: function() {
+                    if (this.newItem.trim() !== '') {
+                        this.items.push(this.newItem);
+                        this.newItem = ''; // Clear the input field
+                    }
+                },
+                removeItem: function(index) {
+                    this.items.splice(index, 1);
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>

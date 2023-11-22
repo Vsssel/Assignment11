@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue.js Conditional Rendering</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+</head>
+<body>
+    <style>
+        *{
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        #app{
+            margin: 0 auto;
+            width: 500px;
+            height: 300px;
+            background-color:antiquewhite;
+            border-radius: 30px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        h2{
+            margin-bottom: 20px;
+        }
+        input{
+            margin: 10px 10px;
+            padding: 7px;
+            border: none;
+            border-radius: 10px;
+            width: 200px;
+        }
+        button{
+            width: 90px;
+            padding: 7px;
+            border: none;
+            border-radius: 10px;
+            background-color: burlywood;
+        }
+        ul{
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            width: 320px;
+        }
+        li{
+            width: 320px;
+            position: relative;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            list-style: none;
+            margin: 5px 5px;
+        }
+    </style>
+    <div id="app">
+        <h2>Task List</h2>
+        <form @submit.prevent="addTask">
+            <input placeholder="New task" type="text" id="newTaskInput" v-model="newTaskTitle" required>
+            <button type="submit">Add Task</button>
+        </form>
+        <ul>
+            <!-- Use v-for to iterate through tasks -->
+            <li v-for="(task, index) in tasks" :key="index">
+                <!-- Use v-if and v-show for conditional rendering -->
+                <span :class="{ completed: task.completed }" v-show="!task.completed">{{ task.title }}</span>
+                <span :class="{ completed: task.completed }" v-if="task.completed"><s>{{ task.title }}</s></span>
+
+                <!-- Add buttons to mark tasks as completed or incomplete -->
+                <button @click="toggleTask(index)">Done</button>
+            </li>
+        </ul>
+    </div>
+
+    <script>
+        // Create a new Vue instance
+        var app = new Vue({
+            el: '#app',
+            data: {
+                tasks: [
+                ],
+                newTaskTitle: ''
+            },
+            methods: {
+                // Toggle the completed status of a task
+                toggleTask: function(index) {
+                    this.tasks[index].completed = !this.tasks[index].completed;
+                },
+                // Add a new task to the list
+                addTask: function() {
+                    if (this.newTaskTitle.trim() !== '') {
+                        this.tasks.push({ title: this.newTaskTitle, completed: false });
+                        this.newTaskTitle = ''; // Clear the input field
+                    }
+                }
+            }
+        });
+    </script>
+
+    <style>
+        /* Add styles to distinguish completed tasks */
+        .completed {
+            text-decoration: line-through;
+            color: #888;
+        }
+    </style>
+
+</body>
+</html>

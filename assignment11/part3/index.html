@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue.js Event Handling and Two-Way Binding</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+</head>
+<body>
+    <style>
+        *{
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+        #app{
+            margin: 0 auto;
+            width: 500px;
+            height: 300px;
+            background-color:antiquewhite;
+            border-radius: 30px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        input{
+            margin-top: 20px;
+            padding: 7px;
+            border: none;
+            border-radius: 10px;
+            width: 200px;
+        }
+        button{
+            width: 180px;
+            padding: 7px;
+            border: none;
+            border-radius: 10px;
+            background-color: burlywood;
+        }
+    </style>
+    <div id="app">
+        <label for="usernameInput">Enter your username:</label>
+        <input type="text" id="usernameInput" v-model="username">
+        <p>Greetings, {{ username }}!</p>
+        <button @click="setDefaultUsername">Set Default Username</button>
+    </div>
+
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                username: ''
+            },
+            methods: {
+                setDefaultUsername: function() {
+                    this.username = 'Username';
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>
